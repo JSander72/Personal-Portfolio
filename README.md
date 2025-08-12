@@ -1,9 +1,7 @@
 # Personal Portfolio Website in React
 
-***Credit to [judygab web-dev-project](https://github.com/judygab/web-dev-projects.git) for the template and youtube tutorials***
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![Portfolio Screenshot](https://user-images.githubusercontent.com/50160672/174933373-1ba6cadf-1c9a-48c3-aa58-984d0bd62d82.png)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Features
 
@@ -45,4 +43,5 @@ This app is ready to be deployed to platforms like Netlify, Vercel, or GitHub Pa
 ## License
 
 This project is licensed under the MIT License. Feel free to use and modify it as needed.
-# Personal-Portfolio
+
+***Credit to [judygab web-dev-project](https://github.com/judygab/web-dev-projects.git) for the template and youtube tutorials***
