@@ -10,10 +10,10 @@ export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState('');
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
+  const [delta, setDelta] = useState(120 - Math.random() * 40);
   // Removed unused 'index' state
   const toRotate = useMemo(() => [ "Web Developer", "Backend Developer", "Technical Writer" ], []);
-  const period = 2000;
+  const period = 900;
 
   const tick = useCallback(() => {
     let i = loopNum % toRotate.length;
@@ -32,7 +32,7 @@ export const Banner = () => {
     } else if (isDeleting && updatedText === '') {
       setIsDeleting(false);
       setLoopNum(loopNum + 1);
-      setDelta(500);
+      setDelta(160);
     }
   }, [loopNum, isDeleting, text, toRotate, period]);
 

@@ -481,7 +481,25 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   z-index: -4;
 }
 
+/* ===== Center project cards in each tab (horizontally + vertically) ===== */
+.project .tab-content .row {
+  display: flex;
+  justify-content: center;  
+  align-items: center;     
+  gap: 20px;                
+  min-height: 60vh;         
+}
+
+.project .proj-imgbx {
+  max-width: 320px;         /* keep cards a nice size */
+}
+
+
 /************ Projects Css ************/
+
+/************ Contact Css ************/
+
+
 .contact {
   background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
   padding: 60px 0 200px 0;
@@ -742,10 +760,180 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 
-/* Optional: if you bring back the left-side illustration, keep its size tidy */
-/* .contact img {
-  width: 92%;
-  max-width: 520px;
-} */
+/* ========================= */
+/* Mobile & Small Screen Adjustments */
+/* ========================= */
 
+/* Collapse navbar items vertically on small screens */
+@media (max-width: 768px) {
+  nav.navbar .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 0;
+  }
+  nav.navbar .navbar-nav .nav-link.navbar-link {
+    padding: 10px 0;
+    width: 100%;
+  }
+}
+
+/* Banner: stack text and image vertically */
+@media (max-width: 768px) {
+  .banner {
+    padding-top: 600px;
+    padding: 180px 0 60px 0;
+    text-align: center;
+  }
+  .banner h1 {
+    /* padding-top: 200px; */
+    font-size: 42px;
+  }
+  /* .tagline {
+    padding-top: 300px;
+    font-size: 42px;
+  } */
+
+  .banner p {
+    /* padding-top: 300px; */
+    width: 100%;
+    font-size: 16px;
+  }
+  .banner img {
+    margin-top: 30px;
+  }
+}
+
+/* Skills section: make slider/grid stack naturally */
+@media (max-width: 768px) {
+  .skill-slider {
+    width: 100%;
+  }
+  .skills-chips {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Projects: vertical nav pills & full-width text */
+@media (max-width: 768px) {
+  .project p {
+    width: 90%;
+  }
+  .project .nav.nav-pills {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+  .project .nav.nav-pills .nav-item {
+    width: 100%;
+  }
+  .nav-link#projects-tabs-tab-first,
+  .nav-link#projects-tabs-tab-second,
+  .nav-link#projects-tabs-tab-third {
+    border-radius: 0;
+  }
+}
+
+/* Contact section: stack form and image */
+@media (max-width: 768px) {
+  .contact {
+    padding: 40px 0 100px 0;
+  }
+  .contact img {
+    display: block;
+    margin: 0 auto 30px auto;
+    width: 70%;
+  }
+  .contact form {
+    width: 100%;
+  }
+}
+
+/* Footer: stack content */
+@media (max-width: 768px) {
+  .footer img {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+  .newsletter-bx {
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .banner {
+    padding-top: 340px; /* smaller phones get more padding */
+  }
+}
+
+/* === Skills carousel: stack vertically on small screens === */
+@media (max-width: 768px) {
+  /* Let the list expand so nothing is clipped */
+  .react-multi-carousel-list {
+    overflow: visible;
+  }
+  /* Kill the horizontal transform and lay items out in a single column */
+  .react-multi-carousel-track {
+    transform: none !important;
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  /* Ensure each slide stretches full width */
+  .react-multi-carousel-item,
+  .skill-slide {
+    width: 100% !important;
+    transform: none !important;
+  }
+  /* Make the meter images look good at mobile width */
+  .skill-slider .item img {
+    width: 70%;
+    max-width: 260px;
+  }
+  /* Hide arrows on mobile (we’re stacking, not sliding) */
+  .custom-arrow {
+    display: none !important;
+  }
+}
+
+/* ===== Skills: desktop arrow positioning ===== */
+@media (min-width: 769px) {
+  .skill-slider {
+    position: relative;               /* anchor arrows */
+  }
+  .custom-arrow {
+    display: grid !important;         /* ensure visible on desktop */
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(4px);
+    z-index: 3;
+    cursor: pointer;
+    transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  }
+  .custom-arrow:hover {
+    background: rgba(255,255,255,0.16);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-50%) scale(1.05);
+  }
+  .custom-arrow:active {
+    transform: translateY(-50%) scale(0.98);
+  }
+  /* .custom-arrow.left  { left: -22px; }  
+  .custom-arrow.right { right: -22px; } */
+
+ 
+  .custom-arrow.left  { left: 6px; }
+  .custom-arrow.right { right: 6px; }
+}
+
+/* Keep arrows hidden when stacked on mobile (since Option A makes a vertical list) */
+@media (max-width: 768px) {
+  .custom-arrow { display: none !important; }
+}
 

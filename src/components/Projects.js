@@ -1,9 +1,6 @@
 // src/components/Projects.js
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { ProjectCard } from "./ProjectCard";
-// import projImg1 from "../assets/img/project-img1.png";
-// import projImg2 from "../assets/img/project-img2.png";
-// import projImg3 from "../assets/img/project-img3.png";
 import grnliteLogo from "../assets/img/Grn_Lite_Logo.png";
 import flaskImg from "../assets/img/flask.png";
 import saasImg from "../assets/img/saas1.png"; 
@@ -79,7 +76,7 @@ export const Projects = () => {
                       className={isVisible ? "animate__animated animate__slideInUp" : ""}
                     >
                       <Tab.Pane eventKey="first">
-                        <Row>
+                        <Row className="justify-content-center gx-4">
                           {projectTab1.map((project, index) => (
                             <ProjectCard key={`t1-${index}`} {...project} />
                           ))}
@@ -87,7 +84,7 @@ export const Projects = () => {
                       </Tab.Pane>
 
                       <Tab.Pane eventKey="second">
-                        <Row>
+                        <Row className="justify-content-center gx-4">
                           {projectTab2.map((project, index) => (
                             <ProjectCard key={`t2-${index}`} {...project} />
                           ))}
@@ -95,7 +92,7 @@ export const Projects = () => {
                       </Tab.Pane>
 
                       <Tab.Pane eventKey="third">
-                        <Row>
+                        <Row className="justify-content-center gx-4">
                           {projectTab3.map((project, index) => (
                             <ProjectCard key={`t3-${index}`} {...project} />
                           ))}
