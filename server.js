@@ -1,52 +1,105 @@
-const express = require("express");
-const router = express.Router();
-const cors = require("cors");
-const nodemailer = require("nodemailer");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import nodemailer from "nodemailer";
 
-// server used to send send emails
+dotenv.config();
+
 const app = express();
-app.use(cors());
 app.use(express.json());
-app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
+app.use(cors({ origin: ["http://localhost:3000"], credentials: false }));
 
-const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
+// --- In-memory store (swap for Redis/DB in prod)
+const codes = new Map(); // key: email, value: { code, expiresAt, attempts }
+
+// Nodemailer for Outlook
+const transporter = nodemailer.createTransport({
+  host: "smtp.office365.com",
+  port: 587,
+  secure: false,
   auth: {
-    user: "********@gmail.com",
-    pass: ""
+    user: process.env.OUTLOOK_EMAIL,
+    pass: process.env.OUTLOOK_APP_PASSWORD, 
   },
 });
 
-contactEmail.verify((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Ready to Send");
+// Helpers
+const now = () => Date.now();
+const EXP_MINUTES = 10;
+const MAX_ATTEMPTS = 5;
+
+const generateCode = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+const isEmail = (e) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+// 1) Request code
+app.post("/contact/request-code", async (req, res) => {
+  try {
+    const { email } = req.body || {};
+    if (!isEmail(email)) return res.status(400).json({ ok: false, msg: "Invalid email." });
+
+    const code = generateCode();
+    const expiresAt = now() + EXP_MINUTES * 60 * 1000;
+    codes.set(email.toLowerCase(), { code, expiresAt, attempts: 0 });
+
+    await transporter.sendMail({
+      from: process.env.OUTLOOK_EMAIL,
+      to: email,
+      subject: "Your verification code",
+      text: `Your verification code is: ${code}\nThis code expires in ${EXP_MINUTES} minutes.`,
+    });
+
+    return res.json({ ok: true, msg: "Code sent." });
+  } catch (err) {
+    return res.status(500).json({ ok: false, msg: "Could not send code." });
   }
 });
 
-router.post("/contact", (req, res) => {
-  const name = req.body.firstName + req.body.lastName;
-  const email = req.body.email;
-  const message = req.body.message;
-  const phone = req.body.phone;
-  const mail = {
-    from: name,
-    to: "********@gmail.com",
-    subject: "Contact Form Submission - Portfolio",
-    html: `<p>Name: ${name}</p>
-           <p>Email: ${email}</p>
-           <p>Phone: ${phone}</p>
-           <p>Message: ${message}</p>`,
-  };
-  contactEmail.sendMail(mail, (error) => {
-    if (error) {
-      res.json(error);
-    } else {
-      res.json({ code: 200, status: "Message Sent" });
+// 2) Verify code and forward message to your inbox
+app.post("/contact/verify", async (req, res) => {
+  try {
+    const { firstName, lastName, email, phone, message, code } = req.body || {};
+    if (!firstName || !lastName || !message || !isEmail(email) || !code) {
+      return res.status(400).json({ ok: false, msg: "Missing fields." });
     }
-  });
+
+    const key = email.toLowerCase();
+    const record = codes.get(key);
+    if (!record) return res.status(400).json({ ok: false, msg: "No code requested for this email." });
+
+    if (record.attempts >= MAX_ATTEMPTS) {
+      codes.delete(key);
+      return res.status(429).json({ ok: false, msg: "Too many attempts. Request a new code." });
+    }
+
+    if (now() > record.expiresAt) {
+      codes.delete(key);
+      return res.status(400).json({ ok: false, msg: "Code expired. Request a new code." });
+    }
+
+    if (record.code !== code.trim()) {
+      record.attempts += 1;
+      codes.set(key, record);
+      return res.status(400).json({ ok: false, msg: "Incorrect code." });
+    }
+
+    // Code valid — forward the message to your Outlook inbox
+    await transporter.sendMail({
+      from: process.env.OUTLOOK_EMAIL,
+      to: process.env.OUTLOOK_EMAIL, // your inbox
+      replyTo: email,                // so you can reply directly
+      subject: `New contact from ${firstName} ${lastName}`,
+      text: `From: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone || "N/A"}\n\nMessage:\n${message}`,
+    });
+
+    // one-time use
+    codes.delete(key);
+
+    return res.json({ ok: true, msg: "Message sent. Thanks!" });
+  } catch (err) {
+    return res.status(500).json({ ok: false, msg: "Failed to send message." });
+  }
 });
+
+app.listen(5000, () => console.log("API listening on :5000"));

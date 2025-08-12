@@ -658,4 +658,94 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 
+/* ===== Contact: verification flow polish ===== */
+
+/* Keep inputs consistent height so the inline button aligns nicely */
+.contact form input,
+.contact form textarea {
+  line-height: 1.2;
+}
+
+.contact form input[type="email"],
+.contact form input[type="text"],
+.contact form input[type="tel"] {
+  min-height: 62px; /* visually matches your padded inputs */
+}
+
+/* Style the inline "Send Code" button to match site aesthetics */
+.contact form button[type="button"] {
+  width: 100%;
+  min-height: 62px;
+  margin-top: 0;
+  padding: 18px 24px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 20px;                      /* match input radius */
+  border: 1px solid rgba(255,255,255,0.6);  /* subtle outline like your chips */
+  color: #fff;
+  background: transparent;
+  position: relative;
+  transition: 0.3s ease-in-out;
+}
+
+/* Remove the primary-button hover fill on the inline button */
+.contact form button[type="button"]::before {
+  display: none;
+}
+
+/* Hover state: invert like navbar’s ghost button */
+.contact form button[type="button"]:hover {
+  background: #fff;
+  color: #121212;
+  border-color: #fff;
+}
+
+/* Keep the primary submit button looking like before */
+.contact form button[type="submit"] {
+  /* inherits your existing .contact form button styles */
+  border-radius: 0; /* keep square per your original */
+}
+
+/* Nice spacing for the optional code field when it appears */
+.contact form input[placeholder="Verification Code"] {
+  margin-top: 8px;
+}
+
+/* Tighten status message spacing under the form */
+.contact .danger, .contact .success {
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+/* Layout helpers so the email + button row stays neat */
+.contact .px-1 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* On wider screens, the email and inline button look aligned */
+@media (min-width: 576px) {
+  .contact .px-1 {
+    height: 100%;
+  }
+  .contact .px-1 > input,
+  .contact .px-1 > button {
+    height: 100%;
+  }
+}
+
+/* Mobile: stack more comfortably */
+@media (max-width: 575.98px) {
+  .contact form button[type="button"] {
+    min-height: 56px;
+    margin-top: 8px; /* slight space when stacked under email */
+  }
+}
+
+/* Optional: if you bring back the left-side illustration, keep its size tidy */
+/* .contact img {
+  width: 92%;
+  max-width: 520px;
+} */
+
 
