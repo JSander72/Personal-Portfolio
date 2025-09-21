@@ -2,8 +2,20 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import mailchimp from "@mailchimp/mailchimp_marketing";
+
+const apiKey = process.env.MAILCHIMP_API_KEY;
+const mailchimpServer = process.env.MAILCHIMP_SERVER_PREFIX || "us14"; // e.g. 'us14'
+const mailchimpListId = process.env.MAILCHIMP_LIST_ID;
+
+mailchimp.setConfig({
+  apiKey,
+  server: mailchimpServer,
+});
+
 
 dotenv.config();
+
 
 const app = express();
 app.use(express.json());
@@ -27,6 +39,8 @@ const transporter = nodemailer.createTransport({
 const now = () => Date.now();
 const EXP_MINUTES = 10;
 const MAX_ATTEMPTS = 5;
+
+
 
 const generateCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -103,3 +117,22 @@ app.post("/contact/verify", async (req, res) => {
 });
 
 app.listen(5000, () => console.log("API listening on :5000"));
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  const { name, email, message } = req.body;
+  try {
+    // Add email to Mailchimp audience list
+    if (!mailchimpListId) throw new Error("Mailchimp List ID not set");
+    const response = await mailchimp.lists.addListMember(mailchimpListId, {
+      email_address: email,
+      status: "subscribed",
+      merge_fields: {
+        FNAME: name || "Subscriber",
+        MESSAGE: message || ""
+      }
+    });
+    res.status(200).json({ success: true, mailchimp: response });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
