@@ -22,11 +22,11 @@ export const Projects = () => {
 
   const projectTab2 = [
     {
-      title: "SaaS(Sanders As a Service) LLC *pending creation 8/12/2025*",
+      title: "SaaS(Sanders As a Service)",
       description:
         "SaaS,Llc delivers custom software engineering and technical solutions tailored to your needs. I specialize in developing secure, scalable web applications, building and integrating APIs, and designing efficient databases. With a strong foundation in both backend and frontend technologies, I bridge complex technical challenges with clear, user-friendly results.",
       imgUrl: saasImg,
-      link: "#",
+      link: "https://sandersasaservice.vercel.app/",
     },
   ];
 
