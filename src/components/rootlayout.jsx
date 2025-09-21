@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { StaffToolbar } from '@components/staff-toolbar';
+import { StaffToolbar } from './staff_toolbar';
 
 export default function RootLayout({ children }) {
   return (
