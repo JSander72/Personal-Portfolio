@@ -1,46 +1,48 @@
-# Personal Portfolio Website in React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Software Engineer Portfolio (React)
+
+This is a personal portfolio web application for a software engineer, built with [React](https://react.dev/) and bootstrapped using [Create React App](https://github.com/facebook/create-react-app).
 
 ## Features
 
-- **Dynamic Components**: Modular and reusable React components for scalability.
-- **Responsive Design**: Built with React-bootstrap for seamless viewing across devices.
-- **Smooth Animations**: Enhanced user experience using Animate.css.
+- **Modular Components**: Includes Banner, Projects, Skills, Contact, Newsletter, and more for easy customization and scalability.
+- **Responsive Design**: Mobile-friendly layout using modern CSS and React best practices.
+- **Custom Assets**: Showcases work with custom images, SVGs, and fonts.
+- **Contact Integration**: Features a contact form and Mailchimp newsletter signup.
+- **Animations**: Smooth transitions and interactive UI elements.
+- **Project Highlights**: Dedicated section for software engineering projects with images and descriptions.
 
-## Available Scripts
+## Getting Started
 
 In the `/personal-portfolio` directory, you can run:
 
 ### `npm start`
 
-Starts the development server.\
-Visit [http://localhost:3000](http://localhost:3000) to preview the app in your browser.
+Runs the development server at [http://localhost:3000](http://localhost:3000).
 
 ### `npm test`
 
-Runs the test suite in watch mode.\
-Refer to the [testing documentation](https://facebook.github.io/create-react-app/docs/running-tests) for details.
+Runs the test suite in watch mode.
 
 ### `npm run build`
 
-Generates a production-ready build in the `build` folder.\
-React is bundled and optimized for performance, with minified files and hashed filenames.
+Creates a production build in the `build` folder.
 
-For deployment instructions, see the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment).
+For deployment, see the [React deployment guide](https://facebook.github.io/create-react-app/docs/deployment).
 
 ## Folder Structure
 
-- **`/components`**: Contains reusable React components such as `Header`, `Footer`, and `ProjectCard`.
-- **`/assets`**: Stores images, icons, and other static resources.
-- **`/styles`**: Includes custom CSS files for additional styling.
+- **`/src/components`**: All React components (Banner, Projects, Skills, Contact, etc.)
+- **`/src/assets`**: Images, SVGs, and fonts for branding and project showcases.
+- **`/public`**: Static files and manifest.
+- **`/src`**: Main app files and styles.
 
 ## Deployment
 
-This app is ready to be deployed to platforms like Netlify, Vercel, or GitHub Pages. Follow the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) for detailed steps.
+Ready for deployment to Netlify, Vercel, or GitHub Pages. See [deployment guide](https://facebook.github.io/create-react-app/docs/deployment).
 
 ## License
 
-This project is licensed under the MIT License. Feel free to use and modify it as needed.
+MIT License. Free to use and modify.
 
-***Credit to [judygab web-dev-project](https://github.com/judygab/web-dev-projects.git) for the template and youtube tutorials***
+***Credit: [judygab web-dev-project](https://github.com/judygab/web-dev-projects.git) for the template inspiration and tutorials.***
