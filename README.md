@@ -39,6 +39,10 @@ For deployment, see the [React deployment guide](https://facebook.github.io/crea
 
 ## Deployment
 
+### Security Notice
+
+For best security, always deploy this site using HTTPS. This ensures all traffic is encrypted and helps prevent man-in-the-middle attacks. If using a custom domain, enable SSL/TLS in your hosting provider.
+
 Ready for deployment to Netlify, Vercel, or GitHub Pages. See [deployment guide](https://facebook.github.io/create-react-app/docs/deployment).
 
 ## License

@@ -10,12 +10,36 @@ export const Contact = () => {
   const [state, handleSubmit] = useForm("xgvnwkww");
   const formRef = useRef(null);
 
+  // Basic input sanitization
+  const sanitizeInput = (value) => {
+    // Remove script tags and trim whitespace
+    return value.replace(/<script.*?>.*?<\/script>/gi, "").replace(/[<>]/g, "").trim();
+  };
+
   // Reset the form after a successful submit
   useEffect(() => {
     if (state.succeeded && formRef.current) {
       formRef.current.reset();
     }
   }, [state.succeeded]);
+
+  // Custom handleSubmit to sanitize inputs
+  const customHandleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const sanitized = {
+      firstName: sanitizeInput(form.firstName.value),
+      lastName: sanitizeInput(form.lastName.value),
+      email: sanitizeInput(form.email.value),
+      message: sanitizeInput(form.message.value),
+    };
+    // Set sanitized values back to form before submit
+    form.firstName.value = sanitized.firstName;
+    form.lastName.value = sanitized.lastName;
+    form.email.value = sanitized.email;
+    form.message.value = sanitized.message;
+    handleSubmit(event);
+  };
 
   return (
     <section className="contact" id="connect">
@@ -39,7 +63,7 @@ export const Contact = () => {
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                   <h2>Get In Touch</h2>
 
-                  <form ref={formRef} onSubmit={handleSubmit}>
+                  <form ref={formRef} onSubmit={customHandleSubmit}>
                     <Row>
                       <Col xs={12} sm={6} className="px-1">
                         <input type="text" name="firstName" placeholder="First Name" />
