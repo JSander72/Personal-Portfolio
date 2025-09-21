@@ -1,138 +1,122 @@
+// server.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-import mailchimp from "@mailchimp/mailchimp_marketing";
-
-const apiKey = process.env.MAILCHIMP_API_KEY;
-const mailchimpServer = process.env.MAILCHIMP_SERVER_PREFIX || "us14"; // e.g. 'us14'
-const mailchimpListId = process.env.MAILCHIMP_LIST_ID;
-
-mailchimp.setConfig({
-  apiKey,
-  server: mailchimpServer,
-});
-
+import morgan from "morgan";
 
 dotenv.config();
 
-
 const app = express();
+const PORT = process.env.PORT || 5000;
+
+// --- Body parsers ---
+// Mailchimp Audience webhooks POST data as application/x-www-form-urlencoded with nested keys.
+// extended: true lets us parse "data[email]" into req.body.data.email
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: ["http://localhost:3000"], credentials: false }));
 
-// --- In-memory store (swap for Redis/DB in prod)
-const codes = new Map(); // key: email, value: { code, expiresAt, attempts }
+// --- CORS only if you also serve browser endpoints; not required for webhook ---
+app.use(cors({ origin: true, credentials: false }));
 
-// Nodemailer for Outlook
+// Helpful request logging
+app.use(morgan("dev"));
+app.set("trust proxy", 1);
+
+// --- Nodemailer (Outlook / Office 365) ---
 const transporter = nodemailer.createTransport({
   host: "smtp.office365.com",
   port: 587,
   secure: false,
   auth: {
     user: process.env.OUTLOOK_EMAIL,
-    pass: process.env.OUTLOOK_APP_PASSWORD, 
+    pass: process.env.OUTLOOK_APP_PASSWORD,
   },
 });
 
-// Helpers
-const now = () => Date.now();
-const EXP_MINUTES = 10;
-const MAX_ATTEMPTS = 5;
+// Optional: verify transporter at startup
+transporter.verify().then(() => {
+  console.log("SMTP ready for Outlook email:", process.env.OUTLOOK_EMAIL);
+}).catch(err => {
+  console.error("SMTP verification failed:", err?.message || err);
+});
 
+// --- Health check ---
+app.get("/health", (_req, res) => res.send("ok"));
 
-
-const generateCode = () => Math.floor(100000 + Math.random() * 900000).toString();
-
-const isEmail = (e) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-
-// 1) Request code
-app.post("/contact/request-code", async (req, res) => {
+// ==================================================
+// =============== Mailchimp Webhook =================
+// ==================================================
+/**
+ * Configure this URL in Mailchimp:
+ * Audience → Settings → Webhooks → Create New Webhook
+ * URL to POST: https://YOUR-PUBLIC-DOMAIN/mailchimp/webhook?token=YOUR_TOKEN
+ * Events to send: at least “Subscribes” (you can also choose Unsubscribes, Profile Updates, etc.)
+ * Sources: All (or choose what you prefer)
+ */
+app.post("/mailchimp/webhook", async (req, res) => {
   try {
-    const { email } = req.body || {};
-    if (!isEmail(email)) return res.status(400).json({ ok: false, msg: "Invalid email." });
+    // Simple shared-secret check to stop random posts
+    const token = req.query.token;
+    if (process.env.WEBHOOK_TOKEN && token !== process.env.WEBHOOK_TOKEN) {
+      return res.status(403).send("forbidden");
+    }
 
-    const code = generateCode();
-    const expiresAt = now() + EXP_MINUTES * 60 * 1000;
-    codes.set(email.toLowerCase(), { code, expiresAt, attempts: 0 });
+    // Mailchimp Audience webhooks typically look like:
+    // type: "subscribe" | "unsubscribe" | "profile" | "cleaned" | "upemail" | "campaign"
+    // data: { email, list_id, web_id, merges: { EMAIL, FNAME, LNAME, ... }, reason, ... }
+    const payload = req.body || {};
+    const type = payload.type || "";
+    const data = payload.data || {};
+    const email =
+      data.email ||
+      (data.merges && (data.merges.EMAIL || data.merges.email)) ||
+      "";
 
+    // Build a clean email for your inbox
+    const lines = [];
+    lines.push(`Event: ${type}`);
+    if (data.list_id) lines.push(`List ID: ${data.list_id}`);
+    if (email) lines.push(`Email: ${email}`);
+
+    // Name (if present)
+    const fname = data.merges?.FNAME || "";
+    const lname = data.merges?.LNAME || "";
+    if (fname || lname) lines.push(`Name: ${fname} ${lname}`.trim());
+
+    // Common extras
+    if (data.reason) lines.push(`Reason: ${data.reason}`);
+    if (data.ip_opt) lines.push(`IP Opt-in: ${data.ip_opt}`);
+    if (payload.fired_at) lines.push(`Fired at: ${payload.fired_at}`);
+    lines.push(""); // spacer
+    lines.push("Raw payload:");
+    lines.push(JSON.stringify(payload, null, 2));
+
+    const subject = `Mailchimp: ${type || "event"} — ${email || "no-email"}`;
+    const text = lines.join("\n");
+
+    // Send to your Outlook inbox
     await transporter.sendMail({
       from: process.env.OUTLOOK_EMAIL,
-      to: email,
-      subject: "Your verification code",
-      text: `Your verification code is: ${code}\nThis code expires in ${EXP_MINUTES} minutes.`,
+      to: process.env.OUTLOOK_EMAIL,
+      subject,
+      text,
     });
 
-    return res.json({ ok: true, msg: "Code sent." });
+    // Mailchimp expects 200 OK on success (don’t retry endlessly)
+    return res.status(200).send("ok");
   } catch (err) {
-    return res.status(500).json({ ok: false, msg: "Could not send code." });
+    console.error("Webhook handler error:", err?.message || err);
+    // Still return 200 so Mailchimp doesn’t keep retrying forever
+    return res.status(200).send("ok");
   }
 });
 
-// 2) Verify code and forward message to your inbox
-app.post("/contact/verify", async (req, res) => {
-  try {
-    const { firstName, lastName, email, phone, message, code } = req.body || {};
-    if (!firstName || !lastName || !message || !isEmail(email) || !code) {
-      return res.status(400).json({ ok: false, msg: "Missing fields." });
-    }
+// (Optional) Keep your existing contact endpoints here (if you use them):
+// app.post("/contact", ...)
+// app.post("/contact/request-code", ...)
+// app.post("/contact/verify", ...)
 
-    const key = email.toLowerCase();
-    const record = codes.get(key);
-    if (!record) return res.status(400).json({ ok: false, msg: "No code requested for this email." });
-
-    if (record.attempts >= MAX_ATTEMPTS) {
-      codes.delete(key);
-      return res.status(429).json({ ok: false, msg: "Too many attempts. Request a new code." });
-    }
-
-    if (now() > record.expiresAt) {
-      codes.delete(key);
-      return res.status(400).json({ ok: false, msg: "Code expired. Request a new code." });
-    }
-
-    if (record.code !== code.trim()) {
-      record.attempts += 1;
-      codes.set(key, record);
-      return res.status(400).json({ ok: false, msg: "Incorrect code." });
-    }
-
-    // Code valid — forward the message to your Outlook inbox
-    await transporter.sendMail({
-      from: process.env.OUTLOOK_EMAIL,
-      to: process.env.OUTLOOK_EMAIL, // your inbox
-      replyTo: email,                // so you can reply directly
-      subject: `New contact from ${firstName} ${lastName}`,
-      text: `From: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone || "N/A"}\n\nMessage:\n${message}`,
-    });
-
-    // one-time use
-    codes.delete(key);
-
-    return res.json({ ok: true, msg: "Message sent. Thanks!" });
-  } catch (err) {
-    return res.status(500).json({ ok: false, msg: "Failed to send message." });
-  }
-});
-
-app.listen(5000, () => console.log("API listening on :5000"));
-// Contact form endpoint
-app.post('/api/contact', async (req, res) => {
-  const { name, email, message } = req.body;
-  try {
-    // Add email to Mailchimp audience list
-    if (!mailchimpListId) throw new Error("Mailchimp List ID not set");
-    const response = await mailchimp.lists.addListMember(mailchimpListId, {
-      email_address: email,
-      status: "subscribed",
-      merge_fields: {
-        FNAME: name || "Subscriber",
-        MESSAGE: message || ""
-      }
-    });
-    res.status(200).json({ success: true, mailchimp: response });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+app.listen(PORT, () => {
+  console.log(`Server listening on http://localhost:${PORT}`);
 });
