@@ -8,22 +8,19 @@ import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import RootLayout from "./components/rootlayout";
 
 
 function App() {
   return (
-    <RootLayout>
-      <div className="App">
-        <NavBar />
-        <Banner />
-        <Skills />
-        <Projects />
-        <Contact />
-        <Footer />
-        <SpeedInsights />
-      </div>
-    </RootLayout>
+    <div className="App">
+      <NavBar />
+      <Banner />
+      <Skills />
+      <Projects />
+      <Contact />
+      <Footer />
+      <SpeedInsights />
+    </div>
   );
 }
 
