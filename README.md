@@ -3,6 +3,8 @@
 
 This is a personal portfolio web application for a software engineer, built with [React](https://react.dev/) and bootstrapped using [Create React App](https://github.com/facebook/create-react-app).
 
+~/web-dev-projects/personal-portfolio
+
 ## Features
 
 - **Modular Components**: Includes Banner, Projects, Skills, Contact, Newsletter, and more for easy customization and scalability.
