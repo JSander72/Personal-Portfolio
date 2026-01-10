@@ -1,1 +1,4 @@
-{ "terminal.integrated.cwd": "${workspaceFolder}" }
+{
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "postman.settings.dotenv-detection-notification-visibility": false
+}

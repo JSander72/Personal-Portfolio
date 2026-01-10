@@ -12,7 +12,7 @@ export const Banner = () => {
   const [text, setText] = useState('');
   const [delta, setDelta] = useState(120 - Math.random() * 40);
   // Removed unused 'index' state
-  const toRotate = useMemo(() => [ "Software Engineer", "IT Support Specialist", "System Administration" ], []);
+  const toRotate = useMemo(() => [ "Software Engineer", "IT Support Specialist", "System Administrator" ], []);
   const period = 900;
 
   const tick = useCallback(() => {
@@ -53,7 +53,7 @@ export const Banner = () => {
               {({ isVisible }) =>
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                 <span className="tagline">Welcome to my Portfolio</span>
-                <h1>{`Hi! I'm James, your`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "IT Support Specialist", "Software Engineer", "System Adminstration",  ]'><span className="wrap">{text}</span></span></h1>
+                <h1>{`Hi! I'm James, your`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "IT Support Specialist", "Software Engineer", "System Adminstrator",  ]'><span className="wrap">{text}</span></span></h1>
                   <p>
                   I’m a Software Engineer with a strong foundation in IT support and infrastructure, focused on building reliable systems end to end—from the code that powers applications to the environments that keep them running. My background spans backend development, API design, and mobile/web applications, alongside hands-on experience with hardware troubleshooting, operating systems, networking fundamentals, and virtualization.
                   </p>
