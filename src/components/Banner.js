@@ -55,16 +55,25 @@ export const Banner = () => {
                 <span className="tagline">Welcome to my Portfolio</span>
                 <h1>{`Hi! I'm James, your`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "IT Support Specialist", "Software Engineer", "System Adminstrator",  ]'><span className="wrap">{text}</span></span></h1>
                   <p>
-                  I’m a Software Engineer with a strong foundation in IT support and infrastructure, focused on building reliable systems end to end—from the code that powers applications to the environments that keep them running. My background spans backend development, API design, and mobile/web applications, alongside hands-on experience with hardware troubleshooting, operating systems, networking fundamentals, and virtualization.
+                  I’m a Software Engineer with a strong foundation in IT support and infrastructure, focused on building reliable systems end to end—from the code that powers applications to the environments that keep them running. My background spans backend development, API design, and mobile/web applications, along with hands-on experience in hardware troubleshooting, operating systems, networking, and virtualization.
                   </p>
 
                   <p>
-                  I’ve designed and deployed full-stack applications using Python, Django, React, and SQL, while also developing the operational mindset needed to support users, diagnose issues, and maintain system stability. Comfortable working across Windows and Linux environments, I bring a practical, support-first approach to technology—prioritizing uptime, clarity, and real-world usability.
+                  I’ve designed and deployed full-stack applications using Python, Django, React, and SQL, while developing the operational mindset needed to support users, diagnose issues, and maintain system stability. Comfortable working across Windows and Linux environments, I bring a practical, support first approach to technology prioritizing uptime, usability, and long-term maintainability.
                   </p>
 
                   <p>
-                  With experience in Agile teams, RESTful architectures, and cloud fundamentals, I translate complex technical problems into clear solutions for both users and teams. Currently expanding my skills in enterprise IT support, cloud platforms, and infrastructure operations, I aim to bridge software engineering and IT support to deliver systems that are scalable, maintainable, and dependable.
+                  With experience in Agile teams, RESTful architectures, and cloud fundamentals, I translate complex technical problems into clear, actionable solutions. I’m currently expanding my expertise in enterprise IT support, cloud platforms, and infrastructure operations to further strengthen my ability to build scalable, dependable systems.
                   </p>
+
+                  <p>
+                  <b>Sanders As A Service</b> delivers full-stack software engineering and IT support with a focus on performance, scalability, and reliability. I specialize in creating secure, user centered web and mobile applications using modern frameworks like Django and React, backed by robust databases and clean, testable code. From API design and deployment to debugging and authentication flows, I take a disciplined, Agile based approach to development.
+                  </p>
+
+                  <p>
+                  On the infrastructure side, I bring hands-on experience in PC maintenance, networking, virtualization, and system diagnostics ensuring that the systems behind your software are just as reliable as the code itself. Whether building from scratch or supporting existing environments, I bridge software engineering with real world IT operations to deliver seamless, end-to-end technical solutions.
+                  </p>
+
 
                   {/* <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button> */}
               </div>}
