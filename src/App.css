@@ -948,25 +948,15 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     width: 100%;
   }
   
-  .react-multi-carousel-item .skill-slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    padding: 20px;
-  }
-  
-  .skill-slider .item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
   .skill-slider .item img {
     width: 60%;
     max-width: 180px;
     margin: 0 auto !important;
+  }
+  
+  .skill-slide h5 {
+    font-size: 14px;
+    margin-top: 8px;
   }
   
   /* Projects section: simplified vertical cards */
