@@ -2,7 +2,7 @@
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { ProjectCard } from "./ProjectCard";
 import grnliteLogo from "../assets/img/Grn_Lite_Logo.png";
-import flaskImg from "../assets/img/flask.png";
+import BhaktiImg from "../assets/img/bhakti.png";
 import saasImg from "../assets/img/saas1.png"; 
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import "animate.css";
@@ -32,11 +32,11 @@ export const Projects = () => {
 
   const projectTab3 = [
     {
-      title: "eCommerce",
+      title: "Bhakti Breath Pacer App",
       description:
-        "Flask + SQLAlchemy backend for products, orders, and stock restocking logic.",
-      imgUrl: flaskImg,
-      link: "https://github.com/JSander72/flask-ecommerce-mini-project.git",
+        "Built with Expo and React Native using TypeScript, Bhakti Wellness delivers a smooth, responsive experience on both iOS and Android from a single codebase. The application emphasizes simplicity, accessibility, and intentional design—making breathwork easy to integrate into daily routines, whether for relaxation, grounding, or energy management.",
+      imgUrl: BhaktiImg,
+      link: "https://github.com/JSander72/Bhakti_Wellness.git",
     },
   ];
 
@@ -64,10 +64,10 @@ export const Projects = () => {
                         <Nav.Link eventKey="first">GRNLITE</Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="second">SaaS LLC</Nav.Link>
+                        <Nav.Link eventKey="second">SaaS Llc</Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="third">eCommerce</Nav.Link>
+                        <Nav.Link eventKey="third">Bhakti App</Nav.Link>
                       </Nav.Item>
                     </Nav>
 
