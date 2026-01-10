@@ -941,3 +941,83 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   .custom-arrow { display: none !important; }
 }
 
+/* ===== Mobile responsive: Skills & Projects simplified layout ===== */
+@media (max-width: 576px) {
+  /* Skills section: simplified vertical layout */
+  .skill-slider {
+    width: 100%;
+  }
+  
+  .react-multi-carousel-item .skill-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 20px;
+  }
+  
+  .skill-slider .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .skill-slider .item img {
+    width: 60%;
+    max-width: 180px;
+    margin: 0 auto !important;
+  }
+  
+  /* Projects section: simplified vertical cards */
+  .project .tab-content .row {
+    flex-direction: column;
+    align-items: center;
+    min-height: auto;
+    gap: 16px;
+  }
+  
+  .project .proj-imgbx {
+    max-width: 280px;
+    width: 100%;
+    min-height: 300px;
+  }
+  
+  .proj-imgbx::before {
+    opacity: 0.6;
+    height: 100%;
+  }
+  
+  .proj-txtx {
+    top: 50%;
+    opacity: 1;
+  }
+  
+  .proj-txtx h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  
+  .proj-txtx span {
+    font-size: 13px;
+    display: none;
+  }
+  
+  /* Project nav pills: vertical and full width */
+  .project .nav.nav-pills {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .project .nav.nav-pills .nav-item {
+    width: 100%;
+  }
+  
+  .project .nav.nav-pills .nav-link {
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 20px !important;
+  }
+}
+
