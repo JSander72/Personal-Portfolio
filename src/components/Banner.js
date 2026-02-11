@@ -53,7 +53,7 @@ export const Banner = () => {
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                   <span className="tagline">James E. Sanders</span>
-                  <h1>IT Support Specialist | Systems & Network Administration | <span className="txt-rotate"><span className="wrap">{text}</span></span></h1>
+                  <h1>Hello, I am your next... <span className="txt-rotate"><span className="wrap">{text}</span></span></h1>
                   
                   <p>
                     I design, deploy, and support reliable IT environments. From Active Directory domain configuration to virtualization and network troubleshooting, I focus on building stable, secure, and scalable systems that organizations depend on daily.
