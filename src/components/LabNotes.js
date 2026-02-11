@@ -28,7 +28,7 @@ export const LabNotes = () => {
         "Confirmed correct DNS server assignment",
       ],
       lessonsLearned:
-        "A server must have a static IP before DHCP role configuration to prevent address reassignment conflicts.",
+        "This lab reinforced the importance of foundational network planning before service deployment. I learned that assigning a static IP to infrastructure servers is critical to maintaining service stability and preventing cascading configuration failures. Proper sequencing of role installation, authorization, and scope activation ensures predictable network behavior in enterprise environments.",
     },
     {
       id: "002",
@@ -52,7 +52,7 @@ export const LabNotes = () => {
         "Ran gpresult /r to confirm policy application",
       ],
       lessonsLearned:
-        "This creates documentation credibility. Hiring managers love structured thinking.",
+        "This exercise strengthened my understanding of centralized management and access control in enterprise environments. I learned how small misconfigurations in security filtering or OU linkage can prevent policy application, and how to systematically validate policy processing using tools like gpresult. It reinforced the value of structured troubleshooting and documentation when managing user access at scale.",
     },
   ];
 

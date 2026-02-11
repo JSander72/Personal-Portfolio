@@ -71,7 +71,7 @@ const lists = {
     "Windows 10/11",
     "Windows Server",
     "Linux (CLI Administration)",
-    "macOS",
+    "MacOS",
   ],
 
   Security: [
