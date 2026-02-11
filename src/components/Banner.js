@@ -12,7 +12,7 @@ export const Banner = () => {
   const [text, setText] = useState('');
   const [delta, setDelta] = useState(120 - Math.random() * 40);
   // Removed unused 'index' state
-  const toRotate = useMemo(() => [ "Software Engineer", "IT Support Specialist", "System Administrator" ], []);
+  const toRotate = useMemo(() => ["IT Support Specialist", "Systems Administrator", "Infrastructure Engineer"], []);
   const period = 900;
 
   const tick = useCallback(() => {
@@ -51,39 +51,90 @@ export const Banner = () => {
           <Col xs={12} md={6} xl={7}>
             <TrackVisibility>
               {({ isVisible }) =>
-              <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <span className="tagline">Welcome!</span>
-                <h1>{`Hi! I'm James, your`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "IT Support Specialist", "Software Engineer", "System Adminstrator",  ]'><span className="wrap">{text}</span></span></h1>
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                  <span className="tagline">James E. Sanders</span>
+                  <h1>IT Support Specialist | Systems & Network Administration | <span className="txt-rotate"><span className="wrap">{text}</span></span></h1>
+                  
                   <p>
-                  I’m a Software Engineer with a strong foundation in IT support and infrastructure, focused on building reliable systems end to end—from the code that powers applications to the environments that keep them running. My background spans backend development, API design, and mobile/web applications, along with hands-on experience in hardware troubleshooting, operating systems, networking, and virtualization.
+                    I design, deploy, and support reliable IT environments. From Active Directory domain configuration to virtualization and network troubleshooting, I focus on building stable, secure, and scalable systems that organizations depend on daily.
                   </p>
 
                   <p>
-                  I’ve designed and deployed full-stack applications using Python, Django, React, and SQL, while developing the operational mindset needed to support users, diagnose issues, and maintain system stability. Comfortable working across Windows and Linux environments, I bring a practical, support first approach to technology prioritizing uptime, usability, and long-term maintainability.
+                    <strong>Core Focus Areas:</strong>
+                  </p>
+                  <ul style={{ marginLeft: "20px", marginBottom: "20px" }}>
+                    <li>Windows Server Administration</li>
+                    <li>Active Directory (AD – Active Directory)</li>
+                    <li>DHCP (Dynamic Host Configuration Protocol) & DNS (Domain Name System)</li>
+                    <li>Group Policy (GPO – Group Policy Objects)</li>
+                    <li>Virtualization (VMware / Hyper-V)</li>
+                    <li>Enterprise Troubleshooting & Tier 1 / Tier 2 Support</li>
+                  </ul>
+
+                  <h3 style={{ marginTop: "20px", marginBottom: "10px" }}>Infrastructure Lab Projects</h3>
+                  
+                  <h4 style={{ marginTop: "15px", marginBottom: "8px" }}>Enterprise Domain Deployment</h4>
+                  <ul style={{ marginLeft: "20px", marginBottom: "15px" }}>
+                    <li>Built Windows Server 2019 Domain Controller</li>
+                    <li>Configured AD, DNS, and DHCP</li>
+                    <li>Created Organizational Units (OU)</li>
+                    <li>Implemented GPO security policies</li>
+                    <li>Domain-joined Windows 10 client</li>
+                    <li>Mapped network drives and configured roaming profiles</li>
+                  </ul>
+
+                  <h4 style={{ marginBottom: "8px" }}>Virtualization & Network Architecture</h4>
+                  <ul style={{ marginLeft: "20px", marginBottom: "15px" }}>
+                    <li>Deployed OVA images in VMware</li>
+                    <li>Configured static IP for server</li>
+                    <li>Implemented DHCP scopes & reservations</li>
+                    <li>Tested authentication and policy propagation</li>
+                  </ul>
+
+                  <h4 style={{ marginBottom: "8px" }}>Troubleshooting Case Studies</h4>
+                  <ul style={{ marginLeft: "20px", marginBottom: "20px" }}>
+                    <li>Resolved domain join failures</li>
+                    <li>Diagnosed DHCP lease conflicts</li>
+                    <li>Corrected Group Policy application issues</li>
+                    <li>Addressed network profile configuration resets</li>
+                  </ul>
+
+                  <h3 style={{ marginBottom: "10px" }}>Certifications & Training</h3>
+                  <ul style={{ marginLeft: "20px", marginBottom: "20px" }}>
+                    <li>Google IT Support Professional (Completed January 2026)</li>
+                    <li>CompTIA A+ (In Progress)</li>
+                    <li>Per Scholas – End User Desktop Support (Pending Completion)</li>
+                    <li>Coding Temple – Software Engineering</li>
+                    <li>OSHA 10 Certified</li>
+                  </ul>
+
+                  <h3 style={{ marginBottom: "10px" }}>Current Focus</h3>
+                  <ul style={{ marginLeft: "20px", marginBottom: "20px" }}>
+                    <li>Multi-DC replication lab</li>
+                    <li>DHCP failover configuration</li>
+                    <li>Security hardening via GPO</li>
+                    <li>Home lab expansion using enterprise server hardware</li>
+                    <li>Building an IT troubleshooting knowledge base system</li>
+                  </ul>
+
+                  {/* <p>
+                    <b>Sanders As A Service</b> delivers full-stack software engineering and IT support with a focus on performance, scalability, and reliability. I specialize in creating secure, user centered web and mobile applications using modern frameworks like Django and React, backed by robust databases and clean, testable code. From API design and deployment to debugging and authentication flows, I take a disciplined, Agile based approach to development.
                   </p>
 
                   <p>
-                  With experience in Agile teams, RESTful architectures, and cloud fundamentals, I translate complex technical problems into clear, actionable solutions. I’m currently expanding my expertise in enterprise IT support, cloud platforms, and infrastructure operations to further strengthen my ability to build scalable, dependable systems.
-                  </p>
-
-                  <p>
-                  <b>Sanders As A Service</b> delivers full-stack software engineering and IT support with a focus on performance, scalability, and reliability. I specialize in creating secure, user centered web and mobile applications using modern frameworks like Django and React, backed by robust databases and clean, testable code. From API design and deployment to debugging and authentication flows, I take a disciplined, Agile based approach to development.
-                  </p>
-
-                  <p>
-                  On the infrastructure side, I bring hands-on experience in PC maintenance, networking, virtualization, and system diagnostics ensuring that the systems behind your software are just as reliable as the code itself. Whether building from scratch or supporting existing environments, I bridge software engineering with real world IT operations to deliver seamless, end-to-end technical solutions.
-                  </p>
+                    On the infrastructure side, I bring hands-on experience in PC maintenance, networking, virtualization, and system diagnostics ensuring that the systems behind your software are just as reliable as the code itself. Whether building from scratch or supporting existing environments, I bridge software engineering with real world IT operations to deliver seamless, end-to-end technical solutions.
+                  </p> */}
 
 
                   {/* <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button> */}
-              </div>}
+                </div>}
             </TrackVisibility>
           </Col>
           <Col xs={12} md={6} xl={5}>
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                  <img src={headerImg} alt="Header Img"/>
+                  <img src={headerImg} alt="Header Img" />
                 </div>}
             </TrackVisibility>
           </Col>

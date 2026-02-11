@@ -17,70 +17,105 @@ export const Skills = () => {
 
   const skillBuckets = [
     {
-      title: "Web Development",
+      title: "Systems Administration",
       img: meter1,
-      alt: "Skill meter showing strong proficiency in web development",
+      alt: "Skill meter showing strong proficiency in systems administration",
     },
     {
-      title: "Backend Development",
+      title: "Networking & Infrastructure",
       img: meter3,
-      alt: "Skill meter showing strong proficiency in backend development",
+      alt: "Skill meter showing strong proficiency in networking and infrastructure",
     },
     {
-      title: "Technical Writing",
+      title: "Support & Troubleshooting",
       img: meter2,
-      alt: "Skill meter showing strong proficiency in technical writing",
+      alt: "Skill meter showing strong proficiency in support and troubleshooting",
     },
     {
-      title: "API & Database Design",
+      title: "Virtualization & Cloud",
       img: meter1,
-      alt: "Skill meter showing strong proficiency in API and database design",
+      alt: "Skill meter showing strong proficiency in virtualization and cloud",
     },
   ];
 
-  const lists = {
-    Languages: ["Python", "JavaScript", "HTML5", "CSS3", "SQL"],
-    "Frameworks & Libraries": [
-      "React",
-      "Flask",
-      "Django",
-      "Django REST Framework",
-      "SQLAlchemy",
-      "Node.js",
-      "Bootstrap",
-    ],
-    Databases: ["PostgreSQL", "MySQL", "SQLite"],
-    "Tools & Platforms": [
-      "Git/GitHub",
-      "Postman",
-      "Insomnia",
-      "Render",
-      "VS Code",
-      "WSL",
-      "AWS (learning)",
-      "GCP (learning)",
-    ],
-    "Engineering Practices": [
-      "Agile/Scrum",
-      "RESTful API design",
-      "MVC",
-      "Debugging",
-      "Unit/Integration testing",
-      "CI/CD",
-      "Responsive design",
-      "Version control",
-    ],
-    "Technical Writing": [
-      "O&M manuals",
-      "User guides",
-      "Style guides",
-      "Templates",
-      "Peer review",
-      "Training materials",
-      "KB articles",
-      "Process docs",
-    ],
-  };
+const lists = {
+  "Systems Administration": [
+    "Windows Server 2019",
+    "Active Directory (AD)",
+    "Group Policy (GPO)",
+    "User & Group Management",
+    "NTFS Permissions",
+    "File & Print Services",
+    "Domain Services",
+  ],
+
+  Networking: [
+    "TCP/IP",
+    "DNS (Domain Name System)",
+    "DHCP (Dynamic Host Configuration Protocol)",
+    "IP Addressing & Subnetting",
+    "IP Reservations",
+    "Routers & Switches",
+    "Network Troubleshooting",
+  ],
+
+  Virtualization: [
+    "VMware",
+    "Hyper-V",
+    "VirtualBox",
+    "OVA Deployment",
+    "NAT vs Bridged Networking",
+  ],
+
+  "Operating Systems": [
+    "Windows 10/11",
+    "Windows Server",
+    "Linux (CLI Administration)",
+    "macOS",
+  ],
+
+  Security: [
+    "Endpoint Protection",
+    "Firewall Configuration",
+    "Access Control",
+    "Least Privilege Model",
+    "Basic Security Hardening",
+  ],
+
+  "Support & Operations": [
+    "Tier 1 / Tier 2 Troubleshooting",
+    "SLA (Service Level Agreements)",
+    "Incident Documentation",
+    "Root Cause Analysis",
+    "Hardware Troubleshooting",
+    "BIOS/UEFI Configuration",
+  ],
+
+  Development: [
+    "Python",
+    "JavaScript",
+    "Flask",
+    "Django",
+    "SQL",
+    "REST API Integration",
+  ],
+
+  Databases: [
+    "PostgreSQL",
+    "MySQL",
+    "SQLite",
+  ],
+
+  "Tools & Platforms": [
+    "Git/GitHub",
+    "Postman",
+    "VS Code",
+    "WSL",
+    "AWS (learning)",
+    "GCP (learning)",
+  ],
+};
+
 
   const LeftArrow = ({ onClick }) => (
     <button

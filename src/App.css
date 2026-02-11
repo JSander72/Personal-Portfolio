@@ -364,6 +364,81 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   position: relative;
   background-color: black;
 }
+
+/************ Lab Notes Css ************/
+.lab-notes {
+  padding: 80px 0;
+  position: relative;
+  background-color: #121212;
+}
+.lab-notes h2 {
+	font-size: 45px;
+	font-weight: 700;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.lab-notes > .container > .row > .col-12 > div > p:first-of-type {
+  color: #B8B8B8;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.lab-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+.lab-entry {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+}
+.lab-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 25px;
+  border-bottom: 2px solid rgba(170, 54, 124, 0.5);
+  padding-bottom: 15px;
+}
+.lab-section {
+  margin-bottom: 25px;
+}
+.lab-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.lab-section p {
+  color: #B8B8B8;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 0;
+}
+.lab-section ul,
+.lab-section ol {
+  color: #B8B8B8;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin-left: 20px;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+.lab-section li {
+  margin-bottom: 8px;
+}
+
+/************ Projects Css ************/
+.project {
+  padding: 80px 0;
+  position: relative;
+  background-color: black;
+}
 .project h2 {
 	font-size: 45px;
 	font-weight: 700;
