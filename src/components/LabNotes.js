@@ -69,10 +69,10 @@ export const LabNotes = () => {
                   }
                 >
                   <h2>Lab Notes</h2>
-                  <p>
+                  {/* <p>
                     This is where you differentiate yourself. Your lab-notes page should look like
                     structured documentation. Use this template for each entry:
-                  </p>
+                  </p> */}
 
                   <div className="lab-entries">
                     {labs.map((lab) => (

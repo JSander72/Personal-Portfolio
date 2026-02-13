@@ -36,6 +36,11 @@ export const Skills = () => {
       img: meter1,
       alt: "Skill meter showing strong proficiency in virtualization and cloud",
     },
+    {
+      title: "Mobile Device Support",
+      img: meter2,
+      alt: "Skill meter showing strong proficiency in mobile device IT support",
+    },
   ];
 
 const lists = {
@@ -113,6 +118,21 @@ const lists = {
     "WSL",
     "AWS (learning)",
     "GCP (learning)",
+  ],
+
+  "Mobile Device Support": [
+    
+    "iOS Management & Configuration",
+    "Android Management & Configuration",
+    "Microsoft Intune",
+    "Apple Device Management",
+    "Device Enrollment & Provisioning",
+    "Mobile Security & Compliance",
+    "App Distribution & Management",
+    "Mobile Email Configuration",
+    "Mobile VPN Setup",
+    "Samsung Knox",
+    "Device Diagnostics & Troubleshooting",
   ],
 };
 
